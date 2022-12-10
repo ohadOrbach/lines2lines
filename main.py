@@ -4,7 +4,7 @@ from Set import *
 
 
 def main():
-    iterations = 6
+    iterations = 8
     cost_list = []
     Q1 = LineR3(np.array([0, 0, 0], dtype=np.float64), np.array([1, 2, 1], dtype=np.float64))
     Q2 = LineR3(np.array([0, 0, 0], dtype=np.float64), np.array([3, 4, 5], dtype=np.float64))
@@ -16,6 +16,9 @@ def main():
     L3 = LineR3(np.array([10, 0, 5], dtype=np.float64), np.array([0, 6, 6], dtype=np.float64))
     Set2 = SetOfLines(np.array([L1, L2, L3]))
     print(Set2)
+
+    # Set3 = SetOfLines(Set=Set2)
+    # print(Set3)
 
     Set1.closest_points_set(Set2)
     dist = Set1.distance(Set2)
@@ -39,6 +42,11 @@ def main():
         R = np.around(R, decimals=2)
         t = np.around(t, decimals=2)
         Set2.R_t_Set(R, t)
+
+    # Set3.closest_points_set(Set2)
+    # dist = Set3.distance(Set2)
+    # Set3.plot3d(Set2, title="+++sum of distances " + str(dist))
+    # print(Set3)
 
     plt.plot(list(range(iterations)), cost_list, '-r')
     plt.title("cost")

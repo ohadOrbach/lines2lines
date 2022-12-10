@@ -4,10 +4,17 @@ from Line import *
 
 
 class SetOfLines:
-    def __init__(self, lines=None):
-        self.lines = [] if lines is None else lines
-        self.size = len(lines)
-        self.points = np.zeros([self.size, 3])
+    def __init__(self, lines=None, Set=None):
+        if Set is not None:
+            self.lines = np.zeros_like(Set.lines)
+            for i in range(len(Set.lines)):
+                self.lines[i] = LineR3(line=Set.lines[i])
+            self.size = len(self.lines)
+            self.points = Set.points.copy()
+        else:
+            self.lines = lines
+            self.size = len(self.lines)
+            self.points = np.zeros([self.size, 3])
         
     def closest_points_set(self, other):
         for i in range(self.size):

@@ -2,7 +2,7 @@ import numpy as np
 
 
 class LineR3:
-    def __init__(self, origin, point, line=None, random=False):
+    def __init__(self, origin=None, point=None, line=None, random=False):
         if random:
             self.origin = np.random.randint(-5, 5, size=(3,))
             self.point = np.random.randint(-5, 5, size=(3,))
@@ -13,10 +13,10 @@ class LineR3:
                 self.direction_without_norm = self.point - self.origin
                 self.direction = self.direction_without_norm / np.linalg.norm(self.direction_without_norm)
             else:
-                self.origin = line.origin
-                self.point = line.point
-                self.direction_without_norm = line.direction_without_norm
-                self.direction = line.direction
+                self.origin = line.origin.copy()
+                self.point = line.point.copy()
+                self.direction_without_norm = line.direction_without_norm.copy()
+                self.direction = line.direction.copy()
 
     def update_line(self, new_origin, new_point):
         self.origin = new_origin
