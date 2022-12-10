@@ -1,17 +1,22 @@
 import numpy as np
 
+
 class LineR3:
-    def __init__(self, origin, point, line=None):
-        if line is None:
-            self.origin = origin
-            self.point = point
-            self.direction_without_norm = self.point - self.origin
-            self.direction = self.direction_without_norm / np.linalg.norm(self.direction_without_norm)
+    def __init__(self, origin, point, line=None, random=False):
+        if random:
+            self.origin = np.random.randint(-5, 5, size=(3,))
+            self.point = np.random.randint(-5, 5, size=(3,))
         else:
-            self.origin = line.origin
-            self.point = line.point
-            self.direction_without_norm = line.direction_without_norm
-            self.direction = line.direction
+            if line is None:
+                self.origin = origin
+                self.point = point
+                self.direction_without_norm = self.point - self.origin
+                self.direction = self.direction_without_norm / np.linalg.norm(self.direction_without_norm)
+            else:
+                self.origin = line.origin
+                self.point = line.point
+                self.direction_without_norm = line.direction_without_norm
+                self.direction = line.direction
 
     def update_line(self, new_origin, new_point):
         self.origin = new_origin
@@ -19,28 +24,24 @@ class LineR3:
         self.direction_without_norm = self.point - self.origin
         self.direction = self.direction_without_norm / np.linalg.norm(self.direction_without_norm)
 
-    def normalize(self):
-        self.direction = self.direction / np.linalg.norm(self.direction)
-
     def add_noise(self, up_lim=0.05):
+        """
+        :param up_lim: upper limit of noise
+        :return: add noise to line
+        """
         noise = np.random.normal(0, up_lim, self.direction.shape)
         self.direction = self.direction + noise
         self.direction = self.direction / np.linalg.norm(self.direction)
 
     def closest_point(self, other):
-        '''
-        Triangulation: finding closest points to two lines.
-        P1 = point on first line
-        d1 = first line's direction vector
-        p2 = point on the second line
-        d1 = second line's direction vector
-        '''
-
+        """
+        :param other: Line that matches this line
+        :return: (p1,p2) = points on L1,L2 that are
+                           the closest to each other
+        """
         if np.isclose(np.abs(np.dot(self.direction, other.direction)), 1):
-            # parallel lines, returning any middle point inbetween
             return self.origin, other.origin
         else:
-            # intersecting or skew lines, returning the point with minimal distance
             n = np.cross(self.direction, other.direction)
             t1 = np.dot((np.cross(other.direction, n)), (other.origin - self.origin)) / (np.dot(n, n))
             t2 = np.dot((np.cross(self.direction, n)), (other.origin - self.origin)) / (np.dot(n, n))
@@ -49,6 +50,11 @@ class LineR3:
             return p1, p2
 
     def R_T_On_Line(self, R, t):
+        """
+        :param R: Rotation matrix
+        :param t: Translation
+        :return: update this line
+        """
         new_origin = np.dot(R, self.origin) + t
         new_point = np.dot(R, self.point) + t
         self.update_line(new_origin, new_point)
