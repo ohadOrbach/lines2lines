@@ -1,5 +1,3 @@
-import numpy as np
-from plot import *
 from calc import *
 from plot import *
 
