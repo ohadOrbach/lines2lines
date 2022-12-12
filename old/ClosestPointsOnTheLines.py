@@ -1,7 +1,5 @@
-import numpy as np
-from plot import *
 from calc import *
-
+from plot import *
 
 
 def main():
@@ -14,7 +12,7 @@ def main():
     R = rotation_matrix(axis, theta)
     t = np.array([5, -4, 2], dtype=np.float64)
     new_origin = np.array([10, 0, 5], dtype=np.float64)
-    origin = np.array([new_origin,new_origin,new_origin])
+    origin = np.array([new_origin, new_origin, new_origin])
     sec_point = np.array([Q1[1] * 2, Q2[1] * 2, Q3[1] * 2])
     L1, L2, L3 = add_noise(R_T_On_Lines(R, t, origin, sec_point))
     Q1 = normline(Q1)

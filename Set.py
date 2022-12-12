@@ -15,13 +15,13 @@ class SetOfLines:
             self.lines = lines
             self.size = len(self.lines)
             self.points = np.zeros([self.size, 3])
-        
+
     def closest_points_set(self, other):
         for i in range(self.size):
             self.points[i], other.points[i] = self.lines[i].closest_point(other.lines[i])
 
     def distance(self, other):
-        return np.around(np.sum(np.linalg.norm(self.points[i]-other.points[i]) for i in range(self.size)), decimals=2)
+        return np.around(np.sum(np.linalg.norm(self.points[i] - other.points[i]) for i in range(self.size)), decimals=2)
 
     def best_fit_transform(self, other):
         """
@@ -73,6 +73,7 @@ class SetOfLines:
             L.add_noise(up_limit)
 
     def plot3d(self, other, points=True, scalar=10, title=None):
+        ax_size = 10
         fig = plt.figure()
         ax = fig.add_subplot(projection='3d')
         ax.set_title(title)
@@ -83,21 +84,21 @@ class SetOfLines:
                       scalar * self.lines[i].direction[0],
                       scalar * self.lines[i].direction[1],
                       scalar * self.lines[i].direction[2],
-                      length=5)
+                      length=4)
             ax.quiver(other.lines[i].origin[0],
                       other.lines[i].origin[1],
                       other.lines[i].origin[2],
                       scalar * other.lines[i].direction[0],
                       scalar * other.lines[i].direction[1],
                       scalar * other.lines[i].direction[2],
-                      length=5)
+                      length=4)
 
         ax.set_xlabel("X")
         ax.set_ylabel("Y")
         ax.set_zlabel("Z")
-        ax.set_xlim([-20, 20])
-        ax.set_ylim([-20, 20])
-        ax.set_zlim([-20, 20])
+        ax.set_xlim([-ax_size, ax_size])
+        ax.set_ylim([-ax_size, ax_size])
+        ax.set_zlim([-ax_size, ax_size])
         if points:
             for i in range(self.size):
                 ax.scatter(self.points[i][0], self.points[i][1], self.points[i][2], marker='o', s=100)

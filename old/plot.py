@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 
+
 def plot3d(P1, P2, A, B):
     '''
     :param P1: Set of vectors
@@ -20,16 +21,16 @@ def plot3d(P1, P2, A, B):
         ax.quiver(P1[i][0][0],
                   P1[i][0][1],
                   P1[i][0][2],
-                  scalar*P1[i][1][0],
-                  scalar*P1[i][1][1],
-                  scalar*P1[i][1][2],
-                length=5)
+                  scalar * P1[i][1][0],
+                  scalar * P1[i][1][1],
+                  scalar * P1[i][1][2],
+                  length=5)
         ax.quiver(P2[i][0][0],
                   P2[i][0][1],
                   P2[i][0][2],
-                  scalar*P2[i][1][0],
-                  scalar*P2[i][1][1],
-                  scalar*P2[i][1][2],
+                  scalar * P2[i][1][0],
+                  scalar * P2[i][1][1],
+                  scalar * P2[i][1][2],
                   length=5)
 
     ax.set_xlabel("X")

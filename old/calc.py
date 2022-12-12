@@ -1,10 +1,12 @@
 import math
+
 import numpy as np
+
 
 def add_noise(lines):
     for i in range(len(lines)):
         noise = np.random.normal(0, 3, lines[0][1].shape)
-        lines[i][1] = lines[i][1]+noise
+        lines[i][1] = lines[i][1] + noise
     return lines
 
 

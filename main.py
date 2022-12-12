@@ -4,17 +4,19 @@ from Set import *
 
 
 def main():
-    iterations = 8
+    iterations = 10
     cost_list = []
-    Q1 = LineR3(np.array([0, 0, 0], dtype=np.float64), np.array([1, 2, 1], dtype=np.float64))
-    Q2 = LineR3(np.array([0, 0, 0], dtype=np.float64), np.array([3, 4, 5], dtype=np.float64))
-    Q3 = LineR3(np.array([0, 0, 0], dtype=np.float64), np.array([0, 3, 3], dtype=np.float64))
+    Q1 = LineR3([0, 0, 0], [1, 2, 1])
+    Q2 = LineR3([0, 0, 0], [3, 4, 5])
+    Q3 = LineR3([0, 0, 0], [0, 3, 3])
     Set1 = SetOfLines(np.array([Q1, Q2, Q3]))
+    Set1 = SetOfLines(np.array([LineR3(origin=[0, 0, 0]) for i in range(15)]))
     print(Set1)
-    L1 = LineR3(np.array([10, 0, 5], dtype=np.float64), np.array([2, 4, 2], dtype=np.float64))
-    L2 = LineR3(np.array([10, 0, 5], dtype=np.float64), np.array([6, 8, 10], dtype=np.float64))
-    L3 = LineR3(np.array([10, 0, 5], dtype=np.float64), np.array([0, 6, 6], dtype=np.float64))
+    L1 = LineR3([10, 0, 5], [2, 4, 2])
+    L2 = LineR3([10, 0, 5], [6, 8, 10])
+    L3 = LineR3([10, 0, 5], [0, 6, 6])
     Set2 = SetOfLines(np.array([L1, L2, L3]))
+    Set2 = SetOfLines(np.array([LineR3(origin=[10, 0, 5], point=Set1.lines[i].point) for i in range(15)]))
     print(Set2)
 
     # Set3 = SetOfLines(Set=Set2)
@@ -50,8 +52,8 @@ def main():
 
     plt.plot(list(range(iterations)), cost_list, '-r')
     plt.title("cost")
-    plt.xlabel("sum of distances")
-    plt.ylabel("iterations")
+    plt.xlabel("iterations")
+    plt.ylabel("sum of distances")
     plt.show()
 
 
