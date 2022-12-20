@@ -4,19 +4,13 @@ from Set import *
 
 
 def main():
-    iterations = 10
+    num_of_lines = 20 #number of lines to in a set
+    iterations = 10 #number of iterations
     cost_list = []
-    Q1 = LineR3([0, 0, 0], [1, 2, 1])
-    Q2 = LineR3([0, 0, 0], [3, 4, 5])
-    Q3 = LineR3([0, 0, 0], [0, 3, 3])
-    Set1 = SetOfLines(np.array([Q1, Q2, Q3]))
-    Set1 = SetOfLines(np.array([LineR3(origin=[0, 0, 0]) for i in range(15)]))
+
+    Set1 = SetOfLines(np.array([LineR3(origin=[0, 0, 0]) for i in range(num_of_lines)]))
     print(Set1)
-    L1 = LineR3([10, 0, 5], [2, 4, 2])
-    L2 = LineR3([10, 0, 5], [6, 8, 10])
-    L3 = LineR3([10, 0, 5], [0, 6, 6])
-    Set2 = SetOfLines(np.array([L1, L2, L3]))
-    Set2 = SetOfLines(np.array([LineR3(origin=[10, 0, 5], point=Set1.lines[i].point) for i in range(15)]))
+    Set2 = SetOfLines(np.array([LineR3(origin=[10, 0, 5], point=Set1.lines[i].point) for i in range(num_of_lines)]))
     print(Set2)
 
     # Set3 = SetOfLines(Set=Set2)

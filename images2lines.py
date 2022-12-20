@@ -1,5 +1,5 @@
 from os import path
-
+import time
 import cv2 as cv
 import numpy as np
 from matplotlib import pyplot as plt
@@ -10,13 +10,14 @@ from geometry import (generate_intrinsics, generate_circle_of_cameras,
 from matching import get_matches
 
 if __name__ == "__main__":
+    start = time.time()
     R = 5  # radius of the circle of cameras
     ARC_ANGLE = np.pi / 36  # 5 degrees increment, as in the sample images
-    IMGS_PATH = "images_bottle/"
+    IMGS_PATH = "new_images/"
     ONLY_COMPLETE_MATCHES = True  # keep only matched keypoints
-    images = [cv.imread(path.join(IMGS_PATH, '{:03d}.png'.format(n)), 0)
-              for n in range(10, 17)]
-    points_2d = get_matches(images, ONLY_COMPLETE_MATCHES)
+    images = [cv.imread(path.join(IMGS_PATH, '{:03d}.jpg'.format(i)), 0)
+              for i in range(10, 12)]
+    points_2d = get_matches(images, ONLY_COMPLETE_MATCHES, visualize=True)
 
     h, w = images[0].shape
     f = h + w  # focal length, estimate
@@ -39,3 +40,4 @@ if __name__ == "__main__":
     plt_show_fixed_aspect(ax)
     # if the direction vectors are needed - they are calculated below.
     line_directions = get_direction_vectors(center_3d, points_3d)
+    print("took ", int(time.time()-start))
