@@ -36,6 +36,7 @@ def main():
         cost_list.append(dist)
         Set1.plot3d(Set2, title="sum of distances " + str(dist))
         _, R, t = Set2.best_fit_transform(Set1)
+      # _, R, t = Set2. best_fit_transform_constrained(Set1) # Add constrain.
         R = np.around(R, decimals=2)
         t = np.around(t, decimals=2)
         Set2.R_t_Set(R, t)
