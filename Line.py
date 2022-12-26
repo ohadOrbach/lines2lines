@@ -55,5 +55,14 @@ class LineR3:
         new_point = np.dot(R, self.point) + t
         self.update_line(new_origin, new_point)
 
+    def distance_to_headline(self):
+        return np.sqrt(np.sum(np.square(self.origin)))
+
+    def on_sphere(self):
+        new_orig = self.origin/np.linalg.norm(self.origin)
+        vector = new_orig-self.origin
+        sec_point = self.point+vector
+        self.update_line(new_orig, sec_point)
+
     def __str__(self):
         return "\n(x,y,z) + t(u,v,w) = ", str(self.origin), " + t", str(self.direction)

@@ -54,4 +54,3 @@ def cut_video_to_images(video_path, start_time, end_time):
 video_path = get_video_path()
 if video_path is not None:
     cut_video_to_images(video_path, 5, 30)
-change_background('new_images')

@@ -1,34 +1,35 @@
 import math
-
+import warnings
 from Set import *
 
 
 def main():
-    num_of_lines = 20 #number of lines to in a set
-    iterations = 10 #number of iterations
+    warnings.filterwarnings("ignore")
+    num_of_lines = 3 #number of lines to in a set
+    iterations = 5 #number of iterations
     cost_list = []
 
     Set1 = SetOfLines(np.array([LineR3(origin=[0, 0, 0]) for i in range(num_of_lines)]))
-    print(Set1)
-    Set2 = SetOfLines(np.array([LineR3(origin=[10, 0, 5], point=Set1.lines[i].point) for i in range(num_of_lines)]))
-    print(Set2)
+    #print(Set1)
+    #Set2 = SetOfLines(np.array([LineR3(origin=[10, 0, 5], point=Set1.lines[i].point) for i in range(num_of_lines)]))
+    Set2 = SetOfLines(Set=Set1)
 
     # Set3 = SetOfLines(Set=Set2)
     # print(Set3)
 
-    Set1.closest_points_set(Set2)
-    dist = Set1.distance(Set2)
-    Set1.plot3d(Set2, title="sum of distances " + str(dist) + "\nwithout rotation")
+    #Set1.closest_points_set(Set2)
+    #dist = Set1.distance(Set2)
+    #et1.plot3d(Set2, title="sum of distances " + str(dist) + "\nwithout rotation")
 
-    axis = [1, 2, 1]
+    axis = np.random.randint(-30, 30, size=(3,))
     theta = math.radians(5)
     R = rotation_matrix(axis, theta)
-    t = np.array([5, -4, 2], dtype=np.float64)
+    t = np.random.randint(-30, 30, size=(3,))
     t = t / np.linalg.norm(t)
-
     Set2.R_t_Set(R, t)
     Set2.noise()
-
+    Set2.set_on_sphere()
+    #print(Set2)
     for i in range(iterations):
         Set1.closest_points_set(Set2)
         dist = Set1.distance(Set2)
@@ -38,6 +39,7 @@ def main():
         R = np.around(R, decimals=2)
         t = np.around(t, decimals=2)
         Set2.R_t_Set(R, t)
+        Set2.set_on_sphere()
 
     # Set3.closest_points_set(Set2)
     # dist = Set3.distance(Set2)

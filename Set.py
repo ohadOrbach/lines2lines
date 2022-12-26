@@ -72,7 +72,7 @@ class SetOfLines:
         for L in self.lines:
             L.add_noise(up_limit)
 
-    def plot3d(self, other, points=True, scalar=10, title=None):
+    def plot3d(self, other, points=True, scalar=5, title=None):
         ax_size = 10
         fig = plt.figure()
         ax = fig.add_subplot(projection='3d')
@@ -105,6 +105,12 @@ class SetOfLines:
                 ax.scatter(other.points[i][0], other.points[i][1], other.points[i][2], marker='>', s=100)
 
         plt.show()
+
+    def set_on_sphere(self):
+        print("distance to headline before movement", self.lines[0].distance_to_headline())
+        for i in range(self.size):
+            self.lines[i].on_sphere()
+        print("distance to headline after movement", self.lines[0].distance_to_headline())
 
     def __str__(self):
         ret = tuple()
