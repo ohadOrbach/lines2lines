@@ -63,6 +63,25 @@ class SetOfLines:
         T[:m, m] = t
 
         return T, R, t
+    
+    # This function placing the second point cloud on the unit sphere.!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! NEW FUNC ADDED 26.12.22
+    def best_fit_transform_constrained(self, other):
+        """
+        Using best-fit transform that maps corresponding points A to B in m spatial dimensions
+        Input:
+          A: Nxm numpy array of corresponding points
+          B: Nxm numpy array of corresponding points
+        Returns:
+          T: (m+1)x(m+1) homogeneous transformation matrix that maps A on to B
+          R: mxm rotation matrix
+          t: Constrained mx1 translation vector.
+        """
+        T, R, t =  self.best_fit_transform(other)
+        # Normalize translation and calc the diffeance between normlized.
+        norm = np.linalg.norm(t)
+        # Add the diff to the second set of lines.
+        Tnew = t / norm
+        return T, R, Tnew
 
     def R_t_Set(self, R, t):
         for L in self.lines:
